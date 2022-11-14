@@ -45,7 +45,6 @@ const res = docs.documents.get({
         StructuralElementParsingFunction(StructuralElement, Document)
     })
 
-
     console.log(convertbackDocument(Document, Markdown))
 
 })
@@ -176,14 +175,17 @@ parseDocument = (document)=>{
 
 convertbackDocument = (document, markdown)=>{
     
+    console.log(document)
+    temp = ""
 
     document.forEach((element)=>{
-        console.log(convertbackParagraph(element, markdown))
-        return
-        markdown += convertbackParagraph(element, markdown)
+        //console.log(convertbackParagraph(element, markdown))
+        //return
+        // console.log(convertbackParagraph(element, markdown))
+        temp += convertbackParagraph(element, markdown)
     })
 
-    return markdown
+    return temp
 }
 
 
@@ -191,16 +193,15 @@ convertbackParagraph = (paragraphobj, markdown)=>{
 
     contentarray = paragraphobj.getarray()
 
+    contentarray.forEach((e)=>{
 
-    contentarray.forEach((element)=>{
-
-        if(element instanceof Line){
-            markdown = addedHeading(element, markdown)
-            markdown = addedContent(element, markdown)
+        if(e instanceof Line){
+            markdown += addedHeading(e)
+            markdown += addedContent(e)
         }
-        else if(element instanceof Link){
-            markdown = addedHeading(element, markdown)
-            markdown = addedContentLink(element, markdown)
+        else if(e instanceof Link){
+            markdown += addedHeading(e)
+            markdown += addedContentLink(e)
         }
 
     })
@@ -209,54 +210,59 @@ convertbackParagraph = (paragraphobj, markdown)=>{
 }
 
 
-addedHeading = (element, markdown)=>{
+addedHeading = (element)=>{
+
+    var temp = ""
 
     if(element.heading == 1){
-        markdown += "# "; 
+        temp += "# "; 
     }
     else if(element.heading == 2){
-        markdown += "## "
+        temp += "## "
     }
     else if(element.heading == 3){
-        markdown += "### "; 
+        temp += "### "; 
     }
     
-    return markdown; 
+    return temp; 
 }
 
-addedContent = (element, markdown) => {
+addedContent = (element) => {
+    var temp = ""
 
     if(element.bold){
-        markdown += "**"
-        markdown += element.text; 
-        markdown += "** "; 
+        temp += "**"
+        temp += element.text; 
+        temp += "** "; 
     }
     else{
-        markdown += element.text; 
+        temp += element.text; 
     }
 
-    return markdown
+    return temp
 }
 
-addedContentLink = (element, markdown) => {
+addedContentLink = (element) => {
+
+    var temp = ""
 
     if(element.bold){
-        markdown += "**["
-        markdown += element.content
-        markdown += "]("
-        markdown += element.link
-        markdown += ")"
-        markdown += "** "
+        temp += "**["
+        temp += element.content
+        temp += "]("
+        temp += element.link
+        temp += ")"
+        temp += "** "
     }
     else{ 
-        markdown += "["
-        markdown += element.content
-        markdown += "]("
-        markdown += element.link
-        markdown += ")"
+        temp += "["
+        temp += element.content
+        temp += "]("
+        temp += element.link
+        temp += ")"
     }
 
-    return markdown
+    return temp
 }
 
 
