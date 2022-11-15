@@ -37,7 +37,7 @@ const res = docs.documents.get({
 }).then((req)=>{
     doc = req.data
 
-    console.log(doc.title)
+    //console.log(doc.title)
     contentarray = doc.body.content
 
     StructuralElementParsingFunction(contentarray[0], Document)
@@ -70,7 +70,7 @@ ParagraphObjectParsingFunction = (element)=>{
     var paragraph = new Paragraph()
     
     ParagraphElementArray.forEach((paragraphelement)=>{
-        console.log(paragraphelement)
+        //console.log(paragraphelement)
         ParagraphElementParsingFunction(paragraphelement, paragraph); 
     })
 
@@ -81,8 +81,8 @@ ParagraphElementParsingFunction = (ParagraphElement, paragraph)=>{
 
     if(ParagraphElement.hasOwnProperty('textRun')){
         var content = ParagraphElement["textRun"]["content"]
-        console.log("hi")
-        console.log(content)
+        //console.log("hi")
+        //console.log(content)
         var heading = checkHeading(ParagraphElement['textRun'])
         var bold = checkbold(ParagraphElement['textRun'])
 
@@ -126,7 +126,7 @@ checkLink = (textRun)=>{
 
 // this is a function that returns the heading of the object. 
 checkHeading = (textRun)=>{
-    console.log(textRun)
+    //console.log(textRun)
     var fontsize = textRun["textStyle"]["fontSize"]["magnitude"]
 
     if(fontsize>=heading1_cutoff){
@@ -175,7 +175,7 @@ parseDocument = (document)=>{
 
 convertbackDocument = (document, markdown)=>{
     
-    console.log(document)
+    //console.log(document)
     temp = ""
 
     document.forEach((element)=>{
@@ -200,6 +200,7 @@ convertbackParagraph = (paragraphobj, markdown)=>{
             markdown += addedContent(e)
         }
         else if(e instanceof Link){
+            //console.log(e)
             markdown += addedHeading(e)
             markdown += addedContentLink(e)
         }
@@ -248,17 +249,17 @@ addedContentLink = (element) => {
 
     if(element.bold){
         temp += "**["
-        temp += element.content
+        temp += element.text
         temp += "]("
-        temp += element.link
+        temp += element.link.url
         temp += ")"
         temp += "** "
     }
     else{ 
         temp += "["
-        temp += element.content
+        temp += element.text
         temp += "]("
-        temp += element.link
+        temp += element.link.url
         temp += ")"
     }
 
