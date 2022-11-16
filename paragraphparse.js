@@ -1,6 +1,8 @@
 var Line = require('./line.js')
 var Link = require('./links.js')
 var Paragraph = require('./paragraphs.js')
+//var tableObjectParsingFunction = require('./tableparse.js')
+
 
 const heading1_cutoff = 23;
 const heading2_cutoff = 18;
@@ -10,13 +12,15 @@ StructuralElementParsingFunction = (element, document)=>{
 
     if(isParagraph(element)){
         var paragraphobj = element["paragraph"]
-        
         var temp = ParagraphObjectParsingFunction(paragraphobj)
         document.push(temp)
     }
+    // else if(isTable(element)){
+    //     var tableobj = element["table"]
+    //     tableObjectParsingFunction(element, document) 
+    // }
     // is paragraph 
-      // does it have any link
-
+    // does it have any link
 }
 
 ParagraphObjectParsingFunction = (element)=>{

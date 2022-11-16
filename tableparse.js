@@ -34,6 +34,7 @@ tableCellParsingFunction = (element)=>{
     var StructuralElementArray = element["content"]
 
     StructuralElementArray.forEach((e)=>{
+        console.log(StructuralElementParsingFunction)
         StructuralElementParsingFunction(e, cell)
     })
 

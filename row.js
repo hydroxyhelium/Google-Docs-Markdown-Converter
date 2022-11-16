@@ -18,6 +18,10 @@ class Row{
         }
     }
 
+    getarray(){
+        return this.contentarray;
+    }
+
     push(element){
         this.contentarray.push(element); 
     }

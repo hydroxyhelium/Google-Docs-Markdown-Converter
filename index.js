@@ -7,7 +7,10 @@ var Link = require('./links.js');
 var Paragraph = require('./paragraphs.js');
 const Table = require('./table');
 var StructuralElementParsingFunction = require('./paragraphparse.js'); 
-var tableObjectParsingFunction = require('./tableparse.js')
+var tableObjectParsingFunction = require('./tableparse.js'); 
+var convertbackParagraph = require('./convertParagraph.js');
+var converBackTable = require('./convertTable.js')
+
 
 // import {google} from "googleapis"
 // import { content } from "googleapis/build/src/apis/content/index.d.ts";
@@ -51,8 +54,7 @@ const res = docs.documents.get({
     var temp = contentarray[6]["table"]
     // console.log(temp)
     tableObjectParsingFunction(temp, Document); 
-    temp = Document[0].getelement(0).getelement(0).paragraphArray[0]
-    console.log(temp)
+    console.log(converBackTable(Document[0], "")); 
 
 })
 
@@ -72,85 +74,82 @@ convertbackDocument = (document, markdown)=>{
 }
 
 
-convertbackParagraph = (paragraphobj, markdown)=>{
+// convertbackParagraph = (paragraphobj, markdown)=>{
 
-    contentarray = paragraphobj.getarray()
+//     contentarray = paragraphobj.getarray()
 
-    contentarray.forEach((e)=>{
+//     contentarray.forEach((e)=>{
 
-        if(e instanceof Line){
-            markdown += addedHeading(e)
-            markdown += addedContent(e)
-        }
-        else if(e instanceof Link){
-            //console.log(e)
-            markdown += addedHeading(e)
-            markdown += addedContentLink(e)
-        }
+//         if(e instanceof Line){
+//             markdown += addedHeading(e)
+//             markdown += addedContent(e)
+//         }
+//         else if(e instanceof Link){
+//             //console.log(e)
+//             markdown += addedHeading(e)
+//             markdown += addedContentLink(e)
+//         }
 
-    })
+//     })
 
-    return markdown; 
-}
+//     return markdown; 
+// }
 
 
-addedHeading = (element)=>{
+// addedHeading = (element)=>{
 
-    var temp = ""
+//     var temp = ""
 
-    if(element.heading == 1){
-        temp += "# "; 
-    }
-    else if(element.heading == 2){
-        temp += "## "
-    }
-    else if(element.heading == 3){
-        temp += "### "; 
-    }
+//     if(element.heading == 1){
+//         temp += "# "; 
+//     }
+//     else if(element.heading == 2){
+//         temp += "## "
+//     }
+//     else if(element.heading == 3){
+//         temp += "### "; 
+//     }
     
-    return temp; 
-}
+//     return temp; 
+// }
 
-addedContent = (element) => {
-    var temp = ""
+// addedContent = (element) => {
+//     var temp = ""
 
-    if(element.bold){
-        temp += "**"
-        temp += element.text; 
-        temp += "** "; 
-    }
-    else{
-        temp += element.text; 
-    }
+//     if(element.bold){
+//         temp += "**"
+//         temp += element.text; 
+//         temp += "** "; 
+//     }
+//     else{
+//         temp += element.text; 
+//     }
 
-    return temp
-}
+//     return temp
+// }
 
-addedContentLink = (element) => {
+// addedContentLink = (element) => {
 
-    var temp = ""
+//     var temp = ""
 
-    if(element.bold){
-        temp += "**["
-        temp += element.text
-        temp += "]("
-        temp += element.link.url
-        temp += ")"
-        temp += "** "
-    }
-    else{ 
-        temp += "["
-        temp += element.text
-        temp += "]("
-        temp += element.link.url
-        temp += ")"
-    }
+//     if(element.bold){
+//         temp += "**["
+//         temp += element.text
+//         temp += "]("
+//         temp += element.link.url
+//         temp += ")"
+//         temp += "** "
+//     }
+//     else{ 
+//         temp += "["
+//         temp += element.text
+//         temp += "]("
+//         temp += element.link.url
+//         temp += ")"
+//     }
 
-    return temp
-}
-
-
-
+//     return temp
+// }
 
 // heading row.
 // row1, row2, row3, row4, ...... 
