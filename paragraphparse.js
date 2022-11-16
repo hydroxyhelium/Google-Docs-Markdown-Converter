@@ -26,7 +26,13 @@ StructuralElementParsingFunction = (element, document)=>{
 ParagraphObjectParsingFunction = (element)=>{
 
     var ParagraphElementArray = element["elements"]
-    var paragraph = new Paragraph()
+
+    if(element.hasOwnProperty('bullet')){
+        var paragraph = new Paragraph(true); 
+    }
+    else{
+        var paragraph = new Paragraph(false);
+    }
     
     ParagraphElementArray.forEach((paragraphelement)=>{
         //console.log(paragraphelement)

@@ -7,8 +7,9 @@ var Link = require('./links.js');
 
 class Paragraph{
     // this object added can be link or line 
-    constructor(){
-        this.array = []   
+    constructor(isList){
+        this.array = [];   
+        this.isList = isList;
     }
 
     appendobj(element){
@@ -26,6 +27,10 @@ class Paragraph{
 
     getarray(){
         return this.array;
+    }
+
+    isBullet(){
+        return this.isList
     }
 }
 

@@ -6,6 +6,10 @@ var Paragraph = require('./paragraphs.js')
 convertbackParagraph = (paragraphobj, markdown)=>{
 
     contentarray = paragraphobj.getarray()
+    
+    if(paragraphobj.isBullet()){
+        markdown += "- "; 
+    }
 
     contentarray.forEach((e)=>{
 

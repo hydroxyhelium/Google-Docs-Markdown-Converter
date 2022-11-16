@@ -51,27 +51,33 @@ const res = docs.documents.get({
     // })
 
     // table is at index 6. 
-    var temp = contentarray[6]["table"]
-    // console.log(temp)
-    tableObjectParsingFunction(temp, Document); 
-    console.log(converBackTable(Document[0], "")); 
-
-})
-
-convertbackDocument = (document, markdown)=>{
+    contentarray.forEach((e)=>{
+        StructuralElementParsingFunction(e, Document)
+    })
     
-    //console.log(document)
-    temp = ""
+    var tempstring = ""; 
 
-    document.forEach((element)=>{
-        //console.log(convertbackParagraph(element, markdown))
-        //return
-        // console.log(convertbackParagraph(element, markdown))
-        temp += convertbackParagraph(element, markdown)
+    Document.forEach((e)=>{
+        tempstring += convertbackParagraph(e, ""); 
     })
 
-    return temp
-}
+    console.log(tempstring)
+})
+
+// convertbackDocument = (document, markdown)=>{
+    
+//     //console.log(document)
+//     temp = ""
+
+//     document.forEach((element)=>{
+//         //console.log(convertbackParagraph(element, markdown))
+//         //return
+//         // console.log(convertbackParagraph(element, markdown))
+//         temp += convertbackParagraph(element, markdown)
+//     })
+
+//     return temp
+// }
 
 
 // convertbackParagraph = (paragraphobj, markdown)=>{
