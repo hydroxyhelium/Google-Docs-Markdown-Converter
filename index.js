@@ -52,12 +52,21 @@ const res = docs.documents.get({
 
     // table is at index 6. 
     contentarray.forEach((e)=>{
-        StructuralElementParsingFunction(e, Document)
+        if(e.hasOwnProperty('table')){
+            tableObjectParsingFunction(e["table"], Document)
+        }
+        else{
+            StructuralElementParsingFunction(e, Document)
+        }
     })
     
     var tempstring = ""; 
 
     Document.forEach((e)=>{
+
+        if(e.constructor.name=="Table"){
+            tempstring += converBackTable(e,"");
+        }
         tempstring += convertbackParagraph(e, ""); 
     })
 

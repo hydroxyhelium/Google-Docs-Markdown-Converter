@@ -37,7 +37,10 @@ convertBackCell = (cellobj)=>{
     
     var parastring = ""; 
 
-    var paraobjarray = cellobj.getarray()
+    console.log(cellobj)
+    var paraobjarray = cellobj["paragraphArray"]
+
+    console.log(paraobjarray)
 
     paraobjarray.forEach((element)=>{
         parastring += convertbackParagraph(element, ""); 

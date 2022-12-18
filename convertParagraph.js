@@ -5,10 +5,13 @@ var Paragraph = require('./paragraphs.js')
 
 convertbackParagraph = (paragraphobj, markdown)=>{
 
-    contentarray = paragraphobj.getarray()
     
-    if(paragraphobj.isBullet()){
+    if(paragraphobj.constructor.name!=="Table" && paragraphobj.isBullet()){
         markdown += "- "; 
+    }
+
+    if(paragraphobj.constructor.name === "Paragraph"){
+        contentarray=paragraphobj["array"]
     }
 
     contentarray.forEach((e)=>{
@@ -31,13 +34,16 @@ addedHeading = (element)=>{
 
     var temp = ""
 
-    if(element.heading == 1){
+    
+
+    if(element.heading == 1 && (element.text!==" " && element.text!=="\n") ){
         temp += "# "; 
     }
-    else if(element.heading == 2){
+    else if(element.heading == 2 && (element.text!==" " && element.text!=="\n")){
+        console.log(element.text!=="\n")
         temp += "## "
     }
-    else if(element.heading == 3){
+    else if(element.heading == 3 && (element.text!==" " && element.text!=="\n")){
         temp += "### "; 
     }
     
